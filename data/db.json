@@ -1,0 +1,8 @@
+{
+  "users": [],
+  "products": [],
+  "admin": {
+    "email": "admin@chamxanh.com",
+    "password": "$2a$10$placeholder"
+  }
+}

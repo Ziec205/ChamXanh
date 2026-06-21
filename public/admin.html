@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chạm Xanh - Quản Trị</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <!-- LOGIN -->
+  <div id="loginPage" class="login-page">
+    <div class="login-card">
+      <div class="login-logo">🌿</div>
+      <h2>Chạm Xanh Admin</h2>
+      <p>Đăng nhập quản trị</p>
+      <input type="email" id="loginEmail" placeholder="Email admin" value="admin@chamxanh.com">
+      <input type="password" id="loginPassword" placeholder="Mật khẩu" value="admin123">
+      <button onclick="adminLogin()">Đăng Nhập</button>
+      <div id="loginError" class="error"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard hidden">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-logo">🌿</span>
+        <h3>Chạm Xanh</h3>
+      </div>
+      <a href="#" class="nav-item active" onclick="showTab('overview')">📊 Tổng Quan</a>
+      <a href="#" class="nav-item" onclick="showTab('products')">🌱 Sản Phẩm</a>
+      <a href="#" class="nav-item" onclick="showTab('users')">👥 Người Dùng</a>
+      <a href="#" class="nav-item" onclick="showTab('settings')">⚙️ Cài Đặt</a>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()">🚪 Đăng Xuất</button>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <!-- OVERVIEW -->
+      <div id="tab-overview" class="tab-content">
+        <h1>Tổng Quan</h1>
+        <div class="stats-grid">
+          <div class="stat-card green"><div class="stat-num" id="statUsers">0</div><div class="stat-label">Người dùng</div></div>
+          <div class="stat-card blue"><div class="stat-num" id="statProducts">0</div><div class="stat-label">Sản phẩm</div></div>
+          <div class="stat-card orange"><div class="stat-num" id="statActive">0</div><div class="stat-label">Đang hoạt động</div></div>
+        </div>
+        <div class="recent-section">
+          <h2>Người dùng gần đây</h2>
+          <div id="recentUsers"></div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div id="tab-products" class="tab-content hidden">
+        <div class="tab-header">
+          <h1>Sản Phẩm</h1>
+          <button class="add-btn" onclick="showAddProduct()">+ Thêm Sản Phẩm</button>
+        </div>
+        <div id="productsList" class="products-grid"></div>
+      </div>
+
+      <!-- USERS -->
+      <div id="tab-users" class="tab-content hidden">
+        <h1>Quản Lý Người Dùng</h1>
+        <div id="usersList" class="users-list"></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="tab-settings" class="tab-content hidden">
+        <h1>Cài Đặt</h1>
+        <div class="settings-card">
+          <h3>Gemini API Key</h3>
+          <p>Nhập API key để kích hoạt chat AI trong ứng dụng</p>
+          <input type="text" id="geminiKey" placeholder="AIzaSy...">
+          <button onclick="saveSettings()">Lưu</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ADD/EDIT PRODUCT MODAL -->
+  <div id="productModal" class="modal hidden">
+    <div class="modal-overlay" onclick="closeProductModal()"></div>
+    <div class="modal-content">
+      <h2 id="modalTitle">Thêm Sản Phẩm</h2>
+      <input type="hidden" id="productId">
+      <label>Tên sản phẩm</label>
+      <input type="text" id="productName" placeholder="VD: Monstera">
+      <label>Giá (VNĐ)</label>
+      <input type="number" id="productPrice" placeholder="150000">
+      <label>Mô tả</label>
+      <textarea id="productDesc" placeholder="Mô tả sản phẩm..."></textarea>
+      <label>Danh mục</label>
+      <select id="productCategory">
+        <option>Cây cảnh</option>
+        <option>Cây ăn quả</option>
+        <option>Rau củ</option>
+        <option>Hoa</option>
+        <option>Dụng cụ</option>
+        <option>Phân bón</option>
+      </select>
+      <label>Hình ảnh</label>
+      <input type="file" id="productImage" accept="image/*">
+      <div id="imagePreview"></div>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeProductModal()">Hủy</button>
+        <button class="save-btn" onclick="saveProduct()">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chạm Xanh - API Server</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #d6ffd3, #edffc5); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { text-align: center; padding: 40px; }
+    .logo { font-size: 48px; margin-bottom: 16px; }
+    h1 { color: #33450d; font-size: 36px; margin-bottom: 8px; }
+    p { color: #45483c; font-size: 18px; margin-bottom: 32px; }
+    .btn { background: #33450d; color: #fff; padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; }
+    .btn:hover { background: #4a6310; }
+    .api-info { margin-top: 40px; background: rgba(255,255,255,0.8); border-radius: 16px; padding: 24px; text-align: left; max-width: 500px; }
+    .api-info h3 { color: #33450d; margin-bottom: 12px; }
+    .api-info code { background: #f4f4ed; padding: 4px 8px; border-radius: 4px; font-size: 14px; }
+    .api-item { margin: 8px 0; color: #45483c; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🌿</div>
+    <h1>Chạm Xanh</h1>
+    <p>API Server & Admin Dashboard</p>
+    <a href="/admin" class="btn">Vào Trang Quản Trị →</a>
+    <div class="api-info">
+      <h3>API Endpoints</h3>
+      <div class="api-item">POST <code>/api/auth/register</code> - Đăng ký</div>
+      <div class="api-item">POST <code>/api/auth/login</code> - Đăng nhập</div>
+      <div class="api-item">GET <code>/api/products</code> - Danh sách sản phẩm</div>
+      <div class="api-item">POST <code>/api/chat</code> - Chat AI (Gemini)</div>
+    </div>
+  </div>
+</body>
+</html>
