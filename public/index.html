@@ -3,34 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chạm Xanh - API Server</title>
+  <title>Cham Xanh API</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #d6ffd3, #edffc5); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .container { text-align: center; padding: 40px; }
-    .logo { font-size: 48px; margin-bottom: 16px; }
-    h1 { color: #33450d; font-size: 36px; margin-bottom: 8px; }
-    p { color: #45483c; font-size: 18px; margin-bottom: 32px; }
-    .btn { background: #33450d; color: #fff; padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; }
-    .btn:hover { background: #4a6310; }
-    .api-info { margin-top: 40px; background: rgba(255,255,255,0.8); border-radius: 16px; padding: 24px; text-align: left; max-width: 500px; }
-    .api-info h3 { color: #33450d; margin-bottom: 12px; }
-    .api-info code { background: #f4f4ed; padding: 4px 8px; border-radius: 4px; font-size: 14px; }
-    .api-item { margin: 8px 0; color: #45483c; }
+    body { font-family: 'Inter', sans-serif; background: #f8f9fa; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .container { text-align: center; max-width: 520px; padding: 40px; }
+    .logo { width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #059669, #10b981); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: #fff; font-size: 22px; font-weight: 700; }
+    h1 { font-size: 28px; color: #1e293b; font-weight: 700; margin-bottom: 6px; }
+    .sub { color: #64748b; font-size: 15px; margin-bottom: 28px; }
+    .btn { display: inline-block; background: #059669; color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: background 0.2s; }
+    .btn:hover { background: #047857; }
+    .api-list { margin-top: 32px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 24px; text-align: left; }
+    .api-list h3 { font-size: 13px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .api-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+    .api-item:last-child { border: none; }
+    .method { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; min-width: 44px; text-align: center; }
+    .method.post { background: #eff6ff; color: #2563eb; }
+    .method.get { background: #ecfdf5; color: #059669; }
+    .api-path { color: #1e293b; font-family: 'SF Mono', monospace; font-size: 13px; }
+    .api-desc { color: #94a3b8; font-size: 12px; margin-left: auto; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="logo">🌿</div>
-    <h1>Chạm Xanh</h1>
-    <p>API Server & Admin Dashboard</p>
-    <a href="/admin" class="btn">Vào Trang Quản Trị →</a>
-    <div class="api-info">
+    <div class="logo">CX</div>
+    <h1>Cham Xanh</h1>
+    <p class="sub">API Server & Admin Dashboard</p>
+    <a href="/admin" class="btn">Vao Trang Quan Tri</a>
+    <div class="api-list">
       <h3>API Endpoints</h3>
-      <div class="api-item">POST <code>/api/auth/register</code> - Đăng ký</div>
-      <div class="api-item">POST <code>/api/auth/login</code> - Đăng nhập</div>
-      <div class="api-item">GET <code>/api/products</code> - Danh sách sản phẩm</div>
-      <div class="api-item">POST <code>/api/chat</code> - Chat AI (Gemini)</div>
+      <div class="api-item"><span class="method post">POST</span><span class="api-path">/api/auth/register</span><span class="api-desc">Dang ky</span></div>
+      <div class="api-item"><span class="method post">POST</span><span class="api-path">/api/auth/login</span><span class="api-desc">Dang nhap</span></div>
+      <div class="api-item"><span class="method get">GET</span><span class="api-path">/api/products</span><span class="api-desc">San pham</span></div>
+      <div class="api-item"><span class="method post">POST</span><span class="api-path">/api/chat</span><span class="api-desc">Chat AI</span></div>
     </div>
   </div>
 </body>
