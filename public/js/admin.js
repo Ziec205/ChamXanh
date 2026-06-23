@@ -88,8 +88,8 @@ async function loadProducts() {
             ${p.description ? `<div class="desc">${p.description}</div>` : ''}
             <div class="product-actions">
               <button class="edit-btn" onclick='editProduct(${JSON.stringify(p).replace(/'/g, "\\'")})'>✏️ Sửa</button>
-              <button class="toggle-btn" onclick="toggleProduct('${p.id}', ${p.active})">${p.active ? '🔒 Ẩn' : '👁 Hiện'}</button>
-              <button class="delete-btn" onclick="deleteProduct('${p.id}')">🗑️</button>
+              <button class="toggle-btn" onclick="toggleProduct('${p._id||p.id}', ${p.active})">${p.active ? '🔒 Ẩn' : '👁 Hiện'}</button>
+              <button class="delete-btn" onclick="deleteProduct('${p._id||p.id}')">🗑️</button>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ function showAddProduct() {
 
 function editProduct(product) {
   document.getElementById('modalTitle').textContent = 'Chỉnh Sửa Sản Phẩm';
-  document.getElementById('productId').value = product.id;
+  document.getElementById('productId').value = product._id || product.id;
   document.getElementById('productName').value = product.name;
   document.getElementById('productPrice').value = product.price;
   document.getElementById('productDesc').value = product.description || '';
@@ -181,8 +181,8 @@ async function loadUsers() {
           <div style="display:flex;align-items:center;gap:12px">
             <span class="badge ${u.active ? 'active' : 'inactive'}">${u.active ? 'Active' : 'Inactive'}</span>
             <div class="user-actions">
-              <button class="toggle-btn" onclick="toggleUser('${u.id}')">${u.active ? '🔒 Khóa' : '✅ Mở'}</button>
-              <button class="delete-btn" onclick="deleteUser('${u.id}')">🗑️</button>
+              <button class="toggle-btn" onclick="toggleUser('${u._id||u.id}')">${u.active ? '🔒 Khóa' : '✅ Mở'}</button>
+              <button class="delete-btn" onclick="deleteUser('${u._id||u.id}')">🗑️</button>
             </div>
           </div>
         </div>

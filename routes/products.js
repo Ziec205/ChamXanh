@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const { readDB, writeDB } = require('../db');
+const Product = require('../models/Product');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 const router = express.Router();
@@ -13,67 +13,68 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
-router.get('/', (req, res) => {
-  const db = readDB();
-  res.json({ products: db.products.filter((p) => p.active !== false) });
+router.get('/', async (req, res) => {
+  try {
+    const products = await Product.find({ active: true });
+    res.json({ products });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
-router.get('/all', authMiddleware, adminMiddleware, (req, res) => {
-  const db = readDB();
-  res.json({ products: db.products });
+router.get('/all', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json({ products });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
-router.post('/', authMiddleware, adminMiddleware, upload.single('image'), (req, res) => {
+router.post('/', authMiddleware, adminMiddleware, upload.single('image'), async (req, res) => {
   try {
     const { name, price, description, category } = req.body;
     if (!name || !price) return res.status(400).json({ error: 'Thiếu tên hoặc giá' });
 
-    const product = {
-      id: uuidv4(),
+    const product = await Product.create({
       name,
       price: Number(price),
       description: description || '',
       category: category || 'Cây cảnh',
       image: req.file ? `/uploads/${req.file.filename}` : null,
-      active: true,
-      createdAt: new Date().toISOString(),
-    };
-
-    const db = readDB();
-    db.products.push(product);
-    writeDB(db);
+    });
     res.json({ product });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-router.put('/:id', authMiddleware, adminMiddleware, upload.single('image'), (req, res) => {
+router.put('/:id', authMiddleware, adminMiddleware, upload.single('image'), async (req, res) => {
   try {
-    const db = readDB();
-    const idx = db.products.findIndex((p) => p.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Không tìm thấy sản phẩm' });
-
+    const update = {};
     const { name, price, description, category, active } = req.body;
-    if (name) db.products[idx].name = name;
-    if (price) db.products[idx].price = Number(price);
-    if (description !== undefined) db.products[idx].description = description;
-    if (category) db.products[idx].category = category;
-    if (active !== undefined) db.products[idx].active = active === 'true';
-    if (req.file) db.products[idx].image = `/uploads/${req.file.filename}`;
+    if (name) update.name = name;
+    if (price) update.price = Number(price);
+    if (description !== undefined) update.description = description;
+    if (category) update.category = category;
+    if (active !== undefined) update.active = active === 'true';
+    if (req.file) update.image = `/uploads/${req.file.filename}`;
 
-    writeDB(db);
-    res.json({ product: db.products[idx] });
+    const product = await Product.findByIdAndUpdate(req.params.id, update, { new: true });
+    if (!product) return res.status(404).json({ error: 'Không tìm thấy sản phẩm' });
+    res.json({ product });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
 
-router.delete('/:id', authMiddleware, adminMiddleware, (req, res) => {
-  const db = readDB();
-  db.products = db.products.filter((p) => p.id !== req.params.id);
-  writeDB(db);
-  res.json({ success: true });
+router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 module.exports = router;
